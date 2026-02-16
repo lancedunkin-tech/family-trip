@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DUNKIN KIDS — BELIZE ADVENTURE 2026!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap');
+
+  :root {
+    --ocean: #0077b6;
+    --ocean-deep: #023e8a;
+    --sky: #00b4d8;
+    --sand: #ffd166;
+    --coral: #ef476f;
+    --jungle: #06d6a0;
+    --sunset: #f77f00;
+    --white: #ffffff;
+    --dark: #1a1a2e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(180deg, #0077b6 0%, #00b4d8 20%, #90e0ef 45%, #c8f0f8 65%, #ffd166 88%, #f4a261 100%);
+    min-height: 100vh;
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* Animated clouds */
+  .clouds { position: fixed; top: 0; left: 0; width: 100%; height: 300px; pointer-events: none; z-index: 0; }
+  .cloud { position: absolute; font-size: 4rem; opacity: 0.3; animation: drift linear infinite; }
+  .cloud:nth-child(1) { top: 30px; animation-duration: 25s; font-size: 3rem; }
+  .cloud:nth-child(2) { top: 80px; animation-duration: 35s; animation-delay: -10s; font-size: 5rem; }
+  .cloud:nth-child(3) { top: 150px; animation-duration: 30s; animation-delay: -20s; font-size: 3.5rem; }
+  @keyframes drift { from { transform: translateX(-100px); } to { transform: translateX(calc(100vw + 100px)); } }
+
+  /* Animated fish */
+  .fish-swim { position: fixed; bottom: 80px; font-size: 2.5rem; animation: swim 12s linear infinite; z-index: 0; opacity: 0.4; }
+  .fish-swim:nth-child(2) { bottom: 140px; animation-duration: 18s; animation-delay: -5s; font-size: 2rem; }
+  .fish-swim:nth-child(3) { bottom: 50px; animation-duration: 15s; animation-delay: -8s; font-size: 3rem; }
+  @keyframes swim { from { transform: translateX(calc(100vw + 50px)) scaleX(-1); } to { transform: translateX(-100px) scaleX(-1); } }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 1.5rem; position: relative; z-index: 1; }
+
+  /* HERO */
+  .hero { text-align: center; padding: 2rem 1rem 1.5rem; }
+  .hero-emoji { font-size: 4rem; animation: bounce 2s ease-in-out infinite; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+  .hero h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    color: var(--white);
+    text-shadow: 3px 3px 0 var(--ocean-deep), 6px 6px 0 rgba(0,0,0,0.1);
+    margin: 0.5rem 0;
+    line-height: 1.1;
+  }
+  .hero h1 .yellow { color: var(--sand); }
+  .hero .where { font-size: 1.3rem; color: rgba(255,255,255,0.9); font-weight: 700; }
+
+  /* COUNTDOWN */
+  .countdown-box {
+    background: linear-gradient(135deg, var(--coral), var(--sunset));
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: 0 8px 30px rgba(239, 71, 111, 0.3);
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 8px 30px rgba(239, 71, 111, 0.3); }
+    50% { box-shadow: 0 8px 40px rgba(239, 71, 111, 0.5); }
+  }
+  .countdown-box .label {
+    font-family: 'Fredoka One', cursive; font-size: 1.2rem;
+    color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 2px;
+  }
+  .countdown-numbers { display: flex; justify-content: center; gap: 1rem; margin-top: 0.8rem; flex-wrap: wrap; }
+  .countdown-unit { background: rgba(255,255,255,0.2); border-radius: 12px; padding: 0.8rem 1.2rem; min-width: 80px; }
+  .countdown-unit .num { font-family: 'Fredoka One', cursive; font-size: 2.5rem; color: var(--white); line-height: 1; }
+  .countdown-unit .unit-label { font-size: 0.75rem; color: rgba(255,255,255,0.85); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+
+  /* PHOTO BANNER */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+  .photo-grid img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+  }
+  .photo-grid img:hover { transform: scale(1.05); }
+  .photo-grid .photo-label {
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.8rem;
+    color: var(--white);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    margin-top: 0.3rem;
+  }
+  @media (max-width: 600px) { .photo-grid { grid-template-columns: 1fr 1fr; } .photo-grid > div:nth-child(5) { display: none; } }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Fredoka One', cursive; font-size: 1.6rem;
+    color: var(--white); text-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+    margin: 2rem 0 1rem; text-align: center;
+  }
+
+  /* CREW CARDS */
+  .crew-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  @media (max-width: 600px) { .crew-grid { grid-template-columns: repeat(2, 1fr); } }
+  .kid-card {
+    background: rgba(255,255,255,0.95); border-radius: 16px; padding: 1.2rem;
+    text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.2s;
+  }
+  .kid-card:hover { transform: scale(1.05) rotate(-1deg); }
+  .kid-card:nth-child(even):hover { transform: scale(1.05) rotate(1deg); }
+  .kid-card .big-emoji { font-size: 3rem; }
+  .kid-card .kid-name { font-family: 'Fredoka One', cursive; font-size: 1.3rem; color: var(--ocean-deep); margin: 0.3rem 0; }
+  .kid-card .kid-age { font-size: 0.85rem; color: var(--ocean); font-weight: 700; }
+  .kid-card .kid-title { font-size: 0.75rem; color: var(--coral); font-weight: 700; margin-top: 0.2rem; }
+
+  /* FUN CARDS */
+  .fun-card {
+    background: rgba(255,255,255,0.95); border-radius: 16px; padding: 1.5rem;
+    margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .fun-card h3 { font-family: 'Fredoka One', cursive; font-size: 1.2rem; color: var(--ocean-deep); margin-bottom: 0.8rem; }
+
+  /* TRAVEL TIMELINE */
+  .timeline { position: relative; padding-left: 2.5rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 4px;
+    background: linear-gradient(to bottom, var(--sky), var(--jungle), var(--sand), var(--coral));
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 0.8rem; padding: 0.8rem 1rem;
+    background: rgba(0, 119, 182, 0.06); border-radius: 12px; border-left: 3px solid var(--sky);
+  }
+  .timeline-item.highlight {
+    background: rgba(6, 214, 160, 0.1); border-left-color: var(--jungle);
+  }
+  .timeline-item.flight {
+    background: rgba(0, 119, 182, 0.1); border-left-color: var(--ocean);
+  }
+  .timeline-item.epic {
+    background: rgba(239, 71, 111, 0.08); border-left-color: var(--coral);
+  }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2.15rem; top: 1rem;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--sand); border: 3px solid var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  }
+  .timeline-item .t-time { font-family: 'Fredoka One', cursive; color: var(--coral); font-size: 0.9rem; }
+  .timeline-item .t-what { font-weight: 700; font-size: 1rem; color: var(--ocean-deep); }
+  .timeline-item .t-detail { font-size: 0.85rem; color: #555; margin-top: 0.2rem; }
+  .timeline-item .t-callout {
+    display: inline-block; margin-top: 0.3rem; font-size: 0.75rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--jungle), var(--sky)); color: white;
+    padding: 0.2rem 0.6rem; border-radius: 20px;
+  }
+
+  /* ADVENTURE LIST */
+  .adventure-list { list-style: none; padding: 0; }
+  .adventure-list li {
+    padding: 0.6rem 0; border-bottom: 2px dashed rgba(0,119,182,0.15);
+    font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .adventure-list li:last-child { border-bottom: none; }
+  .adventure-list .li-emoji { font-size: 1.4rem; flex-shrink: 0; }
+  .adventure-list .cool-factor {
+    margin-left: auto; font-size: 0.7rem;
+    background: linear-gradient(135deg, var(--jungle), var(--sky));
+    color: white; padding: 0.2rem 0.6rem; border-radius: 20px; white-space: nowrap;
+  }
+
+  /* FACTS GRID */
+  .facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  @media (max-width: 600px) { .facts-grid { grid-template-columns: 1fr; } }
+  .fact-card {
+    background: linear-gradient(135deg, rgba(6,214,160,0.1), rgba(0,180,216,0.1));
+    border: 2px solid rgba(6,214,160,0.3); border-radius: 14px; padding: 1rem; text-align: center;
+  }
+  .fact-card .fact-emoji { font-size: 2.2rem; }
+  .fact-card .fact-text { font-size: 0.85rem; font-weight: 700; color: var(--ocean-deep); margin-top: 0.3rem; }
+  .fact-card .fact-detail { font-size: 0.75rem; color: #666; margin-top: 0.2rem; }
+
+  /* HIKING */
+  .hike-card {
+    background: rgba(6,214,160,0.06); border: 2px solid rgba(6,214,160,0.2);
+    border-radius: 14px; padding: 1.2rem; margin-bottom: 0.8rem;
+  }
+  .hike-card h4 { font-family: 'Fredoka One', cursive; color: var(--jungle); font-size: 1rem; margin-bottom: 0.3rem; }
+  .hike-card .hike-meta { font-size: 0.8rem; color: var(--ocean); font-weight: 700; margin-bottom: 0.3rem; }
+  .hike-card .hike-desc { font-size: 0.88rem; color: #444; }
+  .hike-card .hike-tag {
+    display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    padding: 0.15rem 0.5rem; border-radius: 20px; margin-right: 0.3rem;
+  }
+  .hike-tag.easy { background: rgba(6,214,160,0.2); color: var(--jungle); }
+  .hike-tag.moderate { background: rgba(244,162,97,0.2); color: var(--sunset); }
+  .hike-tag.full-day { background: rgba(0,119,182,0.15); color: var(--ocean); }
+  .hike-tag.on-island { background: rgba(239,71,111,0.15); color: var(--coral); }
+
+  /* PACKING GAME */
+  .packing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.6rem; }
+  .pack-item {
+    background: rgba(0,119,182,0.08); border: 2px dashed rgba(0,119,182,0.2);
+    border-radius: 12px; padding: 0.8rem 0.5rem; text-align: center;
+    cursor: pointer; transition: all 0.2s; user-select: none;
+  }
+  .pack-item:hover { background: rgba(6,214,160,0.15); border-color: var(--jungle); }
+  .pack-item.packed { background: rgba(6,214,160,0.2); border-color: var(--jungle); border-style: solid; }
+  .pack-item .pack-emoji { font-size: 1.8rem; }
+  .pack-item .pack-label { font-size: 0.7rem; font-weight: 700; color: var(--ocean-deep); margin-top: 0.2rem; }
+  .pack-item .pack-check { font-size: 0.8rem; color: var(--jungle); margin-top: 0.1rem; visibility: hidden; }
+  .pack-item.packed .pack-check { visibility: visible; }
+
+  /* WHERE WE'RE STAYING */
+  .stay-card {
+    background: rgba(255,255,255,0.95); border-radius: 16px; padding: 1.2rem;
+    margin-bottom: 0.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .stay-card .stay-emoji { font-size: 2.5rem; flex-shrink: 0; }
+  .stay-card h4 { font-family: 'Fredoka One', cursive; color: var(--ocean-deep); font-size: 1rem; }
+  .stay-card .stay-dates { font-size: 0.85rem; color: var(--coral); font-weight: 700; }
+  .stay-card .stay-address { font-size: 0.82rem; color: #555; margin-top: 0.2rem; }
+  .stay-card .stay-detail { font-size: 0.82rem; color: #777; margin-top: 0.2rem; }
+
+  /* DAY CARD */
+  .day-card {
+    background: rgba(255,255,255,0.95); border-radius: 16px; padding: 1.2rem;
+    margin-bottom: 0.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .day-card h3 {
+    font-family: 'Fredoka One', cursive; font-size: 1.05rem; color: var(--ocean-deep); margin-bottom: 0.5rem;
+  }
+  .day-card ul { list-style: none; padding: 0; }
+  .day-card li { padding: 0.3rem 0; padding-left: 1.5rem; position: relative; font-size: 0.9rem; font-weight: 600; }
+  .day-card li::before { content: '>'; position: absolute; left: 0.2rem; color: var(--jungle); font-weight: 900; font-family: 'Fredoka One', cursive; }
+
+  .footer { text-align: center; padding: 2rem; font-size: 2rem; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<div class="clouds">
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">⛅</div>
+</div>
+<div class="fish-swim">🐠</div>
+<div class="fish-swim">🐟</div>
+<div class="fish-swim">🐡</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-emoji">🏝️</div>
+    <h1>WE'RE GOING TO <span class="yellow">BELIZE!</span></h1>
+    <div class="where">March 20–29, 2026 &bull; Ambergris Caye &bull; 10 Days</div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-box">
+    <div class="label">Countdown to Takeoff!</div>
+    <div class="countdown-numbers" id="countdown">
+      <div class="countdown-unit"><div class="num" id="days">--</div><div class="unit-label">Days</div></div>
+      <div class="countdown-unit"><div class="num" id="hours">--</div><div class="unit-label">Hours</div></div>
+      <div class="countdown-unit"><div class="num" id="mins">--</div><div class="unit-label">Mins</div></div>
+      <div class="countdown-unit"><div class="num" id="secs">--</div><div class="unit-label">Secs</div></div>
+    </div>
+  </div>
+
+  <!-- PHOTOS -->
+  <div class="photo-grid">
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Azure_Water_off_the_coast_of_Ambergris_Caye%2C_Belize.jpg/960px-Azure_Water_off_the_coast_of_Ambergris_Caye%2C_Belize.jpg" alt="Ambergris Caye Beach">
+      <div class="photo-label">Our Island - Ambergris Caye</div>
+    </div>
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Fan_Corals_Belize_Barrier_Reef.jpg/960px-Fan_Corals_Belize_Barrier_Reef.jpg" alt="Belize Barrier Reef">
+      <div class="photo-label">Snorkeling the Barrier Reef</div>
+    </div>
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Great_Blue_Hole.jpg" alt="Great Blue Hole">
+      <div class="photo-label">The Great Blue Hole</div>
+    </div>
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Secret_Beach_Ambergris_Caye%2C_Belize%2C_January_2022_-_01.jpg/960px-Secret_Beach_Ambergris_Caye%2C_Belize%2C_January_2022_-_01.jpg" alt="Secret Beach">
+      <div class="photo-label">Secret Beach</div>
+    </div>
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Coral_Reef%2C_Belize.jpg/960px-Coral_Reef%2C_Belize.jpg" alt="Coral Reef Belize">
+      <div class="photo-label">Coral Reef Up Close</div>
+    </div>
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Cockscomb_Basin_Wildlife_Sanctuary_05.JPG/960px-Cockscomb_Basin_Wildlife_Sanctuary_05.JPG" alt="Belize Jungle">
+      <div class="photo-label">Jungle Hiking (Ray!)</div>
+    </div>
+  </div>
+
+  <!-- THE CREW -->
+  <div class="section-title">👊 The Crew</div>
+  <div class="crew-grid">
+    <div class="kid-card">
+      <div class="big-emoji">👨</div>
+      <div class="kid-name">Dad</div>
+      <div class="kid-age">Lance</div>
+      <div class="kid-title">Trip Commander</div>
+    </div>
+    <div class="kid-card">
+      <div class="big-emoji">👩</div>
+      <div class="kid-name">Mom</div>
+      <div class="kid-age">Missy</div>
+      <div class="kid-title">Snack Logistics</div>
+    </div>
+    <div class="kid-card">
+      <div class="big-emoji">🥾</div>
+      <div class="kid-name">Ray</div>
+      <div class="kid-age">Age 17</div>
+      <div class="kid-title">Chief Hike Officer</div>
+    </div>
+    <div class="kid-card">
+      <div class="big-emoji">🏄</div>
+      <div class="kid-name">Finn</div>
+      <div class="kid-age">Age 15</div>
+      <div class="kid-title">Head of Ocean Ops</div>
+    </div>
+    <div class="kid-card">
+      <div class="big-emoji">🦈</div>
+      <div class="kid-name">Seth</div>
+      <div class="kid-age">Age 12</div>
+      <div class="kid-title">Shark Spotter</div>
+    </div>
+    <div class="kid-card">
+      <div class="big-emoji">🐒</div>
+      <div class="kid-name">Abel</div>
+      <div class="kid-age">Age 9</div>
+      <div class="kid-title">Adventure Captain</div>
+    </div>
+  </div>
+
+  <!-- WHERE WE'RE STAYING -->
+  <div class="section-title">🏠 Where We're Staying</div>
+
+  <div class="stay-card">
+    <div class="stay-emoji">🏨</div>
+    <div>
+      <h4>Four Points by Sheraton (Night Before)</h4>
+      <div class="stay-dates">Friday, March 20 — 1 night</div>
+      <div class="stay-address">Four Points by Sheraton Kansas City Airport, Kansas City, MO (near MCI)</div>
+      <div class="stay-detail">Free 24-hour airport shuttle &bull; Early bedtime — we fly out at 6:40 AM!</div>
+    </div>
+  </div>
+
+  <div class="stay-card">
+    <div class="stay-emoji">🌴</div>
+    <div>
+      <h4>Beach House Airbnb — 7 NIGHTS!</h4>
+      <div class="stay-dates">Saturday, March 21 – Saturday, March 28</div>
+      <div class="stay-address">3.5 miles south of San Pedro town, Ambergris Caye, Belize</div>
+      <div class="stay-detail">Right on the beach! &bull; 20-30 min golf cart ride to town &bull; Check-in 3:00 PM, Checkout 11:00 AM</div>
+    </div>
+  </div>
+
+  <div class="stay-card">
+    <div class="stay-emoji">🏨</div>
+    <div>
+      <h4>Four Points by Sheraton (Return Night)</h4>
+      <div class="stay-dates">Saturday night, March 28 — 1 night</div>
+      <div class="stay-address">Four Points by Sheraton Kansas City Airport, Kansas City, MO (near MCI)</div>
+      <div class="stay-detail">We land at 12:39 AM (technically Sunday) &bull; Crash here, drive home in the morning</div>
+    </div>
+  </div>
+
+  <!-- =================== GETTING THERE =================== -->
+  <div class="section-title">✈️ Getting There — Door to Door</div>
+
+  <!-- DAY 0: DRIVE TO KC -->
+  <div class="fun-card">
+    <h3>🚗 Friday, March 20 — Road Trip to Kansas City</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="t-time">~3:00 PM</div>
+        <div class="t-what">Leave the House in Bentonville!</div>
+        <div class="t-detail">Load up the car, lock up, and HIT THE ROAD</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">3.5 hours</div>
+        <div class="t-what">Drive Bentonville → Kansas City</div>
+        <div class="t-detail">Snacks, music, movies — the usual road trip vibes</div>
+      </div>
+      <div class="timeline-item highlight">
+        <div class="t-time">~6:30 PM</div>
+        <div class="t-what">Check in to Four Points by Sheraton</div>
+        <div class="t-detail">Hotel near KCI Airport &bull; 2 rooms &bull; Get settled</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">Early!</div>
+        <div class="t-what">GO TO BED</div>
+        <div class="t-detail">Seriously. We have to be at the airport by 4:30 AM tomorrow. Yes, 4:30 AM.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 1: FLY TO BELIZE -->
+  <div class="fun-card">
+    <h3>✈️ Saturday, March 21 — WE FLY TO BELIZE!</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="t-time">~4:00 AM</div>
+        <div class="t-what">Wake Up (yes, really)</div>
+        <div class="t-detail">Get dressed, grab your stuff, check out of hotel</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">~4:15 AM</div>
+        <div class="t-what">Hotel Shuttle to MCI Airport</div>
+        <div class="t-detail">Free 24-hour shuttle — call front desk and they pick us up</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">~4:30 AM</div>
+        <div class="t-what">Arrive at Kansas City Airport (MCI)</div>
+        <div class="t-detail">Check bags, get through security, find our gate</div>
+      </div>
+      <div class="timeline-item flight">
+        <div class="t-time">6:40 AM → 8:39 AM</div>
+        <div class="t-what">Flight 1: Kansas City → Dallas</div>
+        <div class="t-detail">American Airlines AA 2487 &bull; ~2 hours</div>
+        <div class="t-callout">FLIGHT 1 of 3 today!</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">8:39 – 10:25 AM</div>
+        <div class="t-what">Layover in Dallas (DFW)</div>
+        <div class="t-detail">1 hour 46 min — enough time for breakfast!</div>
+      </div>
+      <div class="timeline-item flight">
+        <div class="t-time">10:25 AM → 12:22 PM</div>
+        <div class="t-what">Flight 2: Dallas → BELIZE CITY!</div>
+        <div class="t-detail">American Airlines AA 551 &bull; International flight! &bull; ~2 hours</div>
+        <div class="t-callout">We leave the country!! 🇧🇿</div>
+      </div>
+      <div class="timeline-item highlight">
+        <div class="t-time">12:22 PM</div>
+        <div class="t-what">LAND IN BELIZE!</div>
+        <div class="t-detail">Philip S.W. Goldson International Airport (BZE) &bull; Belize City</div>
+        <div class="t-callout">Passport stamps! Immigration! Welcome to Central America!</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">12:30 – 2:45 PM</div>
+        <div class="t-what">Immigration, Customs & Chill</div>
+        <div class="t-detail">Get our passport stamps, collect bags, walk to the domestic terminal &bull; Grab lunch while we wait</div>
+      </div>
+      <div class="timeline-item epic">
+        <div class="t-time">3:00 PM → 3:13 PM</div>
+        <div class="t-what">Flight 3: TINY PLANE TO THE ISLAND!</div>
+        <div class="t-detail">Tropic Air Flight 9N 100 &bull; BZE → San Pedro (SPR)</div>
+        <div class="t-callout">13-minute Cessna Caravan! You fly LOW over the reef — you can see sharks, rays, and coral from the window!</div>
+      </div>
+      <div class="timeline-item highlight">
+        <div class="t-time">3:13 PM</div>
+        <div class="t-what">Land on Ambergris Caye!</div>
+        <div class="t-detail">San Pedro Airstrip — literally a tiny runway on the island</div>
+      </div>
+      <div class="timeline-item epic">
+        <div class="t-time">3:15 PM</div>
+        <div class="t-what">PICK UP OUR GOLF CART! 🏎️</div>
+        <div class="t-detail">6-seater golf cart from Aviz Golf Carts — waiting at the airstrip for us</div>
+        <div class="t-callout">This is our car for the ENTIRE WEEK. No joke. Everyone drives golf carts here!</div>
+      </div>
+      <div class="timeline-item highlight">
+        <div class="t-time">~3:30 PM</div>
+        <div class="t-what">Arrive at Our Beach House!</div>
+        <div class="t-detail">~15-20 min golf cart ride south along the coast to our Airbnb</div>
+        <div class="t-callout">7 nights of island life starts NOW 🌴</div>
+      </div>
+    </div>
+    <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(239,71,111,0.08); border-radius: 10px; font-size: 0.85rem; text-align: center;">
+      <strong>Total door-to-door:</strong> Bentonville → Beach House = about 24 hours (with the KC hotel overnight)
+    </div>
+  </div>
+
+  <!-- =================== ISLAND WEEK =================== -->
+  <div class="section-title">🌴 7 Days of Island Life</div>
+
+  <div class="day-card">
+    <h3>🤿 Sunday, March 22 — First Full Beach Day</h3>
+    <ul>
+      <li>Wake up ON THE BEACH IN BELIZE</li>
+      <li>Explore the beach, swim, check out the reef</li>
+      <li>Golf cart into San Pedro town for groceries & exploring</li>
+      <li>First island dinner — fresh seafood!</li>
+    </ul>
+  </div>
+
+  <div class="day-card">
+    <h3>🦈 Monday, March 23 — Shark Ray Alley + Hol Chan</h3>
+    <ul>
+      <li>Snorkel tour — Hol Chan Marine Reserve</li>
+      <li>Swim with nurse sharks and stingrays at Shark Ray Alley</li>
+      <li>The reef is the 2nd largest in THE ENTIRE WORLD</li>
+    </ul>
+  </div>
+
+  <div class="day-card">
+    <h3>🏖️ Tuesday, March 24 — Secret Beach</h3>
+    <ul>
+      <li>Golf cart to Secret Beach on the west side of the island</li>
+      <li>Calm, shallow turquoise water — wade out forever</li>
+      <li>Hammocks, rope swings, island vibes</li>
+    </ul>
+  </div>
+
+  <div class="day-card">
+    <h3>🏝️ Wednesday, March 25 — Day Trip to Caye Caulker</h3>
+    <ul>
+      <li>Water taxi to the neighboring island</li>
+      <li>Caye Caulker motto: "Go Slow"</li>
+      <li>Snorkel, eat, chill, explore a whole different island</li>
+    </ul>
+  </div>
+
+  <div class="day-card">
+    <h3>🥾 Thursday, March 26 — Jungle Adventure Day (Ray's Pick!)</h3>
+    <ul>
+      <li>Mainland day trip — Mayan ruins or jungle hike</li>
+      <li>See below for hiking options!</li>
+      <li>Howler monkeys, crocodiles, ancient temples</li>
+    </ul>
+  </div>
+
+  <div class="day-card">
+    <h3>🎣 Friday, March 27 — Last Full Day — Make It Count!</h3>
+    <ul>
+      <li>Fishing, kayaking, paddleboarding</li>
+      <li>One more snorkel trip? One more Secret Beach run?</li>
+      <li>Last sunset on the island</li>
+    </ul>
+  </div>
+
+  <!-- =================== GETTING HOME =================== -->
+  <div class="section-title">🏠 Getting Home — Door to Door</div>
+
+  <div class="fun-card">
+    <h3>✈️ Saturday, March 28 — Travel Day Home</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="t-time">~10:00 AM</div>
+        <div class="t-what">Last Morning — Pack Up</div>
+        <div class="t-detail">Soak it in one more time. Grab any last stuff from the beach house.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">11:00 AM</div>
+        <div class="t-what">Check Out of Airbnb</div>
+        <div class="t-detail">Load up the golf cart one last time</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">~11:15 AM</div>
+        <div class="t-what">Golf Cart to San Pedro Airstrip</div>
+        <div class="t-detail">~15-20 min drive north &bull; Return golf cart to Aviz at the airstrip</div>
+      </div>
+      <div class="timeline-item epic">
+        <div class="t-time">12:30 PM → 12:43 PM</div>
+        <div class="t-what">Tiny Plane BACK to Mainland!</div>
+        <div class="t-detail">Tropic Air Flight 9N 079 &bull; San Pedro (SPR) → Belize City (BZE)</div>
+        <div class="t-callout">13 minutes! One more reef flyover!</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">12:43 – 3:39 PM</div>
+        <div class="t-what">Chill at Belize City Airport</div>
+        <div class="t-detail">Almost 3 hours — get lunch, browse the shops, no rush</div>
+      </div>
+      <div class="timeline-item flight">
+        <div class="t-time">3:39 PM → 8:04 PM</div>
+        <div class="t-what">Flight 4: Belize City → Miami!</div>
+        <div class="t-detail">American Airlines AA 344 &bull; Back to the USA</div>
+        <div class="t-callout">International flight — say goodbye to Belize 😢</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">8:04 – 9:55 PM</div>
+        <div class="t-what">Layover in Miami (MIA)</div>
+        <div class="t-detail">1 hour 51 min — grab dinner, stretch your legs</div>
+      </div>
+      <div class="timeline-item flight">
+        <div class="t-time">9:55 PM → 12:39 AM</div>
+        <div class="t-what">Flight 5: Miami → Kansas City!</div>
+        <div class="t-detail">American Airlines AA 773 &bull; Last flight! &bull; Lands after midnight</div>
+        <div class="t-callout">We land at 12:39 AM — that's technically Sunday, March 29!</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">~1:00 AM</div>
+        <div class="t-what">Hotel Shuttle → Four Points</div>
+        <div class="t-detail">Get bags, call the shuttle, collapse at the hotel</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fun-card">
+    <h3>🚗 Sunday, March 29 — Drive Home</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="t-time">Morning</div>
+        <div class="t-what">Sleep In (We Earned It)</div>
+        <div class="t-detail">No alarms. No flights. Just rest.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-time">~10:00 AM</div>
+        <div class="t-what">Check Out & Hit the Road</div>
+        <div class="t-detail">3.5 hour drive Kansas City → Bentonville</div>
+      </div>
+      <div class="timeline-item highlight">
+        <div class="t-time">~1:30 PM</div>
+        <div class="t-what">HOME!</div>
+        <div class="t-detail">Trip complete. 10 days. 6 flights. 1 golf cart. Infinite memories.</div>
+        <div class="t-callout">Already planning the next one...</div>
+      </div>
+    </div>
+    <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(239,71,111,0.08); border-radius: 10px; font-size: 0.85rem; text-align: center;">
+      <strong>Total return door-to-door:</strong> Beach House → Home in Bentonville = about 27 hours (with the KC hotel overnight)
+    </div>
+  </div>
+
+  <!-- =================== EPIC ADVENTURES =================== -->
+  <div class="section-title">🤿 Epic Adventure Bucket List</div>
+  <div class="fun-card">
+    <h3>🏆 Things We Can Do on the Island</h3>
+    <ul class="adventure-list">
+      <li><span class="li-emoji">🤿</span><span>Snorkel the Belize Barrier Reef</span><span class="cool-factor">2nd LARGEST reef on EARTH!</span></li>
+      <li><span class="li-emoji">🦈</span><span>Swim with Nurse Sharks & Stingrays</span><span class="cool-factor">Shark Ray Alley</span></li>
+      <li><span class="li-emoji">🐠</span><span>Hol Chan Marine Reserve</span><span class="cool-factor">Tropical fish city</span></li>
+      <li><span class="li-emoji">🏖️</span><span>Secret Beach</span><span class="cool-factor">Hidden west-side hangout</span></li>
+      <li><span class="li-emoji">🛶</span><span>Kayaking & Paddleboarding</span><span class="cool-factor">Crystal clear water</span></li>
+      <li><span class="li-emoji">🎣</span><span>Go Fishing</span><span class="cool-factor">Catch something wild</span></li>
+      <li><span class="li-emoji">🏎️</span><span>Golf Cart EVERYWHERE</span><span class="cool-factor">No cars on the island!</span></li>
+      <li><span class="li-emoji">🏝️</span><span>Day Trip to Caye Caulker</span><span class="cool-factor">"Go Slow" island</span></li>
+      <li><span class="li-emoji">🏛️</span><span>Ancient Mayan Ruins</span><span class="cool-factor">1000+ years old!</span></li>
+      <li><span class="li-emoji">🍽️</span><span>Fry Jacks, Rice & Beans, Fresh Seafood</span><span class="cool-factor">Island food hits different</span></li>
+    </ul>
+  </div>
+
+  <!-- =================== HIKING FOR RAY =================== -->
+  <div class="section-title">🥾 Hiking & Jungle Adventures (Ray's Section!)</div>
+
+  <div class="fun-card">
+    <h3>🗺️ On-Island Hike</h3>
+    <div class="hike-card">
+      <h4>Bacalar Chico National Park</h4>
+      <div class="hike-meta"><span class="hike-tag on-island">On-Island</span><span class="hike-tag easy">Easy-Moderate</span></div>
+      <div class="hike-desc">
+        Northern tip of Ambergris Caye — a <strong>UNESCO World Heritage Site</strong>.
+        11 miles of trails through coastal forest, mangroves, and sinkholes.
+        There are <strong>wild jaguars and pumas</strong> in this park (super rare to see, but they're there).
+        Small Mayan ruins on-site too. Get there by boat from San Pedro.
+      </div>
+    </div>
+  </div>
+
+  <div class="fun-card">
+    <h3>🌴 Mainland Day Trips (Boat or Fly to Belize City, Then Van)</h3>
+
+    <div class="hike-card">
+      <h4>Lamanai Mayan Ruins + Jungle River Boat</h4>
+      <div class="hike-meta"><span class="hike-tag full-day">Full Day</span><span class="hike-tag moderate">Moderate</span></div>
+      <div class="hike-desc">
+        1.2-mile trail through <strong>jungle-covered pyramids</strong>. Climb the Jaguar Temple and the High Temple.
+        The trip includes a <strong>45-minute jungle river boat ride</strong> where you'll see howler monkeys, crocodiles, and turtles.
+        Full day adventure — leave early, back by dinner.
+      </div>
+    </div>
+
+    <div class="hike-card">
+      <h4>Cave Tubing at Jaguar Paw</h4>
+      <div class="hike-meta"><span class="hike-tag full-day">Full Day</span><span class="hike-tag easy">Easy-Moderate</span></div>
+      <div class="hike-desc">
+        Hike through the jungle, then <strong>float through underground caves</strong> on an inner tube with a headlamp.
+        The caves are ancient — the Maya used them for ceremonies. One of the most popular adventures in all of Belize.
+        Can be combined with zip-lining through the jungle canopy!
+      </div>
+    </div>
+
+    <div class="hike-card">
+      <h4>Altun Ha Mayan Ruins + River Safari</h4>
+      <div class="hike-meta"><span class="hike-tag full-day">Half/Full Day</span><span class="hike-tag easy">Easy</span></div>
+      <div class="hike-desc">
+        Closest major ruins to San Pedro. Climb the <strong>Sun God Temple</strong> — the one on the Belikan beer bottle!
+        Often paired with a <strong>jungle river boat ride</strong> where you spot iguanas, monkeys, and crocs.
+        Good option if you want ruins without an exhausting hike.
+      </div>
+    </div>
+
+    <div class="hike-card">
+      <h4>Xunantunich — Climb El Castillo</h4>
+      <div class="hike-meta"><span class="hike-tag full-day">Full Day (Long!)</span><span class="hike-tag moderate">Moderate</span></div>
+      <div class="hike-desc">
+        Near the Guatemala border. You take a <strong>hand-cranked ferry</strong> across a river, then hike 1 mile through jungle to the ruins.
+        El Castillo is the <strong>2nd tallest structure in all of Belize</strong> — climb to the top for views into Guatemala.
+        Far away, but the most impressive ruins you can visit.
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== COOL FACTS =================== -->
+  <div class="section-title">🧠 Cool Belize Facts</div>
+  <div class="fun-card" style="padding: 1rem;">
+    <div class="facts-grid">
+      <div class="fact-card">
+        <div class="fact-emoji">💵</div>
+        <div class="fact-text">$1 US = $2 Belize</div>
+        <div class="fact-detail">Everything costs double numbers but the same price!</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-emoji">🗣️</div>
+        <div class="fact-text">They Speak English!</div>
+        <div class="fact-detail">Only English-speaking country in Central America</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-emoji">🐊</div>
+        <div class="fact-text">Howler Monkeys & Crocs</div>
+        <div class="fact-detail">Wild animals in the jungle on the mainland</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-emoji">🌊</div>
+        <div class="fact-text">Barrier Reef = 190 Miles</div>
+        <div class="fact-detail">Only Australia's Great Barrier Reef is bigger</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-emoji">🕳️</div>
+        <div class="fact-text">The Great Blue Hole</div>
+        <div class="fact-detail">400 ft deep underwater sinkhole — visible from SPACE</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-emoji">🏝️</div>
+        <div class="fact-text">Island < 1 Mile Wide</div>
+        <div class="fact-detail">You can walk across it in 15 minutes</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-emoji">🏛️</div>
+        <div class="fact-text">Ancient Mayan Land</div>
+        <div class="fact-detail">Ruins are 1,000+ years old — built before Columbus</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-emoji">🏎️</div>
+        <div class="fact-text">Golf Carts > Cars</div>
+        <div class="fact-detail">Almost nobody has a car on the island. Golf carts only!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== IMPORTANT STUFF =================== -->
+  <div class="section-title">🛂 Important Stuff to Know</div>
+  <div class="fun-card">
+    <ul class="adventure-list">
+      <li><span class="li-emoji">🛂</span><span><strong>Passport Required!</strong> — You NEED your passport. No passport = no Belize.</span></li>
+      <li><span class="li-emoji">📱</span><span><strong>QR Code for Immigration</strong> — Mom & Dad will fill out a digital form. You get a QR code to scan at the airport.</span></li>
+      <li><span class="li-emoji">🦟</span><span><strong>Bug Spray is a Must</strong> — Belize has mosquitoes. Bring DEET bug spray and use it!</span></li>
+      <li><span class="li-emoji">☀️</span><span><strong>Sunscreen, Sunscreen, Sunscreen</strong> — You're close to the equator. You WILL burn without it.</span></li>
+      <li><span class="li-emoji">🌡️</span><span><strong>Weather: 80s°F and Sunny</strong> — March is dry season. Hot, humid, perfect beach weather.</span></li>
+      <li><span class="li-emoji">⏰</span><span><strong>Same Time Zone as Home!</strong> — Belize = Central Time. No jet lag!</span></li>
+    </ul>
+  </div>
+
+  <!-- =================== PACKING =================== -->
+  <div class="section-title">🎒 Pack Your Bag! (tap to check off)</div>
+  <div class="fun-card">
+    <h3>🧳 Don't Forget!</h3>
+    <div class="packing-grid">
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🛂</div><div class="pack-label">Passport</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🩱</div><div class="pack-label">Swimsuit</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🤿</div><div class="pack-label">Snorkel</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🧴</div><div class="pack-label">Sunscreen</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🩴</div><div class="pack-label">Flip Flops</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🧢</div><div class="pack-label">Hat</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">😎</div><div class="pack-label">Sunglasses</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🦟</div><div class="pack-label">Bug Spray</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">📱</div><div class="pack-label">Phone/Charger</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">📷</div><div class="pack-label">Camera</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">👟</div><div class="pack-label">Water Shoes</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🥾</div><div class="pack-label">Hiking Shoes</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🎮</div><div class="pack-label">Switch</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">📚</div><div class="pack-label">Book</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">🎧</div><div class="pack-label">Headphones</div><div class="pack-check">✅</div></div>
+      <div class="pack-item" onclick="this.classList.toggle('packed')"><div class="pack-emoji">💊</div><div class="pack-label">Dramamine</div><div class="pack-check">✅</div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    🌴🐠🦈🤿🏝️🌊☀️🥥🦜🐢
+  </div>
+
+</div>
+
+<script>
+  // Countdown to March 21, 2026 6:40 AM CST (first flight)
+  const target = new Date('2026-03-21T06:40:00-06:00').getTime();
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('days').textContent = '🎉';
+      document.getElementById('hours').textContent = "LET'S";
+      document.getElementById('mins').textContent = 'GO';
+      document.getElementById('secs').textContent = '!!';
+      return;
+    }
+    document.getElementById('days').textContent = Math.floor(diff / (1000*60*60*24));
+    document.getElementById('hours').textContent = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    document.getElementById('mins').textContent = Math.floor((diff % (1000*60*60)) / (1000*60));
+    document.getElementById('secs').textContent = Math.floor((diff % (1000*60)) / 1000);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
